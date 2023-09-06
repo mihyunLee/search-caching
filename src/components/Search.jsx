@@ -3,14 +3,30 @@ import SearchForm from "./SearchForm";
 import SearchResult from "./SearchResult";
 import { styled } from "styled-components";
 import { getRecommendedWord } from "../apis/requests";
+import { BASE_URL } from "../constants";
+import { getCachedData, setCachedData } from "../utils/cache";
 
 export default function Search() {
   const [recommendedWordList, setRecommendedWordList] = useState([]);
 
   const fetchData = useCallback(async (keyword) => {
     try {
-      const response = await getRecommendedWord(keyword);
-      setRecommendedWordList(response);
+      const cacheName = `cache_${keyword}`;
+      const url = `${BASE_URL}?q=${keyword}`;
+
+      let cacheData = await getCachedData(cacheName, url);
+
+      if (cacheData) {
+        // 캐시에 데이터가 있을 경우
+        setRecommendedWordList(cacheData);
+      } else {
+        // 캐시에 데이터가 없을 경우
+        const response = await getRecommendedWord(keyword);
+
+        await setCachedData(cacheName, url, response);
+
+        setRecommendedWordList(response);
+      }
     } catch (error) {
       console.error("Error fetching data:", error);
     }
