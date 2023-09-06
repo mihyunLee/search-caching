@@ -2,7 +2,7 @@ import React from "react";
 import { styled } from "styled-components";
 import { ReactComponent as SearchIcon } from "../assets/icon-search.svg";
 
-export default function SearchForm({ searchWord, setSearchWord }) {
+export default function SearchForm({ searchWord, handleChangeInput }) {
   return (
     <div>
       <form>
@@ -11,7 +11,7 @@ export default function SearchForm({ searchWord, setSearchWord }) {
           <StyledInput
             type="search"
             value={searchWord}
-            onChange={(e) => setSearchWord(e.target.value)}
+            onChange={handleChangeInput}
             placeholder="질환명을 입력해 주세요."
           />
           <SearchButton aria-label="검색">
