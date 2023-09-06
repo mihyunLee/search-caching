@@ -2,13 +2,18 @@ import React from "react";
 import { styled } from "styled-components";
 import { ReactComponent as SearchIcon } from "../assets/icon-search.svg";
 
-export default function SearchForm() {
+export default function SearchForm({ searchWord, setSearchWord }) {
   return (
     <div>
       <form>
         <SearchBox>
           <SearchIcon width="16px" height="16px" />
-          <StyledInput type="search" placeholder="질환명을 입력해 주세요." />
+          <StyledInput
+            type="search"
+            value={searchWord}
+            onChange={(e) => setSearchWord(e.target.value)}
+            placeholder="질환명을 입력해 주세요."
+          />
           <SearchButton aria-label="검색">
             <SearchIcon width="21px" height="21px" />
           </SearchButton>

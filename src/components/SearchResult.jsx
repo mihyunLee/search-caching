@@ -1,10 +1,13 @@
 import React from "react";
 import { styled } from "styled-components";
 
-export default function SearchResult() {
+export default function SearchResult({ recommendedWordList }) {
   return (
     <Container>
       <Title>추천 검색어</Title>
+      {recommendedWordList.map((el) => (
+        <div key={el.sickCd}>{el.sickNm}</div>
+      ))}
     </Container>
   );
 }
