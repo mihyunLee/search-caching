@@ -1,8 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import useDebounce from "../hooks/useDebounce";
 import { styled } from "styled-components";
 import { ReactComponent as SearchIcon } from "../assets/icon-search.svg";
 
-export default function SearchForm({ searchWord, handleChangeInput }) {
+export default function SearchForm({ fetchData }) {
+  const [searchWord, setSearchWord] = useState("");
+
+  const debouncedSearchWord = useDebounce(searchWord, 500);
+
+  const handleChangeInput = (e) => {
+    setSearchWord(e.target.value);
+  };
+
+  useEffect(() => {
+    if (debouncedSearchWord) {
+      fetchData(debouncedSearchWord);
+    }
+  }, [debouncedSearchWord, fetchData]);
+
   return (
     <div>
       <form>
