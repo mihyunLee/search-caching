@@ -7,9 +7,9 @@ import { getRecommendedWord } from "../apis/requests";
 export default function Search() {
   const [recommendedWordList, setRecommendedWordList] = useState([]);
 
-  const fetchData = useCallback(async (keyowrd) => {
+  const fetchData = useCallback(async (keyword) => {
     try {
-      const response = await getRecommendedWord(keyowrd);
+      const response = await getRecommendedWord(keyword);
       setRecommendedWordList(response);
     } catch (error) {
       console.error("Error fetching data:", error);
