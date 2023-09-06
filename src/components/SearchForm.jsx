@@ -22,7 +22,7 @@ export default function SearchForm({ fetchData }) {
     <div>
       <form>
         <SearchBox>
-          <SearchIcon width="16px" height="16px" />
+          <StyledSearchIcon width="16px" height="16px" />
           <StyledInput
             type="search"
             value={searchWord}
@@ -45,13 +45,13 @@ const SearchBox = styled.div`
   background-color: var(--white);
   padding: 20px 10px 20px 24px;
   border-radius: 42px;
+`;
 
-  svg {
-    margin-right: 12px;
+export const StyledSearchIcon = styled(SearchIcon)`
+  margin-right: 12px;
 
-    path {
-      fill: var(--gray);
-    }
+  path {
+    fill: var(--gray);
   }
 `;
 

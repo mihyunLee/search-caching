@@ -9,6 +9,7 @@ const GlobalStyle = createGlobalStyle`
 		--black: #000;
 		--white: #fff;
 		--gray: #A7AFB7;
+		--lightGray: #EDEDED;
 		--deepGray: #6A737B;
 		--skyBlue: #CAE9FF;
 		--blue: #007BE9;
@@ -34,6 +35,7 @@ const GlobalStyle = createGlobalStyle`
 	ul,li{
 		list-style: none;
 		padding: 0;
+		margin: 0;
 	}
 	img{
 		width: 100%;

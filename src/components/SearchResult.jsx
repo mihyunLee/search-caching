@@ -1,22 +1,31 @@
 import React from "react";
 import { styled } from "styled-components";
+import SearchResultItem from "./SearchResultItem";
 
 export default function SearchResult({ recommendedWordList }) {
   return (
     <Container>
       <Title>추천 검색어</Title>
-      {recommendedWordList.map((el) => (
-        <div key={el.sickCd}>{el.sickNm}</div>
-      ))}
+      <ResultBox>
+        {recommendedWordList.length > 0 ? (
+          <ul>
+            {recommendedWordList.map((el) => (
+              <SearchResultItem key={el.sickCd}>{el.sickNm}</SearchResultItem>
+            ))}
+          </ul>
+        ) : (
+          <Message>검색어 없음</Message>
+        )}
+      </ResultBox>
     </Container>
   );
 }
 
 const Container = styled.div`
   width: 490px;
-  height: 250px;
+  max-height: 250px;
   position: absolute;
-  bottom: -180px;
+  top: 360px;
   padding: 18px;
   background-color: var(--white);
   border-radius: 20px;
@@ -27,4 +36,25 @@ const Title = styled.h3`
   font-size: 12px;
   font-weight: normal;
   color: var(--deepGray);
+`;
+
+const ResultBox = styled.div`
+  max-height: 160px;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--blue);
+    border-radius: 50px;
+    border: 4px solid var(--blue);
+    min-height: 50px;
+  }
+`;
+
+const Message = styled.p`
+  color: var(--deepGray);
+  text-align: center;
 `;
