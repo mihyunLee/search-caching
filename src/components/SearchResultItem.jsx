@@ -2,9 +2,9 @@ import React from "react";
 import { styled } from "styled-components";
 import { StyledSearchIcon } from "./SearchForm";
 
-export default function SearchResultItem({ children }) {
+function SearchResultItem({ children, tabIndex, onKeyDown }, ref) {
   return (
-    <StyledLi>
+    <StyledLi ref={ref} tabIndex={tabIndex} onKeyDown={onKeyDown}>
       <StyledSearchIcon width="16px" height="16px" />
       <span>{children}</span>
     </StyledLi>
@@ -30,3 +30,5 @@ const StyledLi = styled.li`
     }
   }
 `;
+
+export default React.forwardRef(SearchResultItem);
