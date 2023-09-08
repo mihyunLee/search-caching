@@ -3,17 +3,23 @@ import useDebounce from "../hooks/useDebounce";
 import { styled } from "styled-components";
 import { ReactComponent as SearchIcon } from "../assets/icon-search.svg";
 
-export default function SearchForm({ fetchData }) {
+export default function SearchForm({ fetchData, setIsEmptyValue }) {
   const [searchWord, setSearchWord] = useState("");
 
   const debouncedSearchWord = useDebounce(searchWord, 500);
 
   const handleChangeInput = (e) => {
     setSearchWord(e.target.value);
+
+    if (e.target.value.trim().length > 0) {
+      setIsEmptyValue(false);
+    } else {
+      setIsEmptyValue(true);
+    }
   };
 
   useEffect(() => {
-    if (debouncedSearchWord) {
+    if (debouncedSearchWord.trim()) {
       fetchData(debouncedSearchWord);
     }
   }, [debouncedSearchWord, fetchData]);

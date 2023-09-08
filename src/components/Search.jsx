@@ -8,6 +8,7 @@ import { getCachedData, setCachedData } from "../utils/cache";
 
 export default function Search() {
   const [recommendedWordList, setRecommendedWordList] = useState([]);
+  const [isEmptyValue, setIsEmptyValue] = useState(true);
 
   const fetchData = useCallback(async (keyword) => {
     try {
@@ -37,8 +38,10 @@ export default function Search() {
       <Title>
         국내 모든 임상시험 검색하고 <br /> 온라인으로 참여하기
       </Title>
-      <SearchForm fetchData={fetchData} />
-      <SearchResult recommendedWordList={recommendedWordList} />
+      <SearchForm fetchData={fetchData} setIsEmptyValue={setIsEmptyValue} />
+      {!isEmptyValue && (
+        <SearchResult recommendedWordList={recommendedWordList} />
+      )}
     </Container>
   );
 }
