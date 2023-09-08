@@ -3,7 +3,7 @@ import SearchForm from "./SearchForm";
 import SearchResult from "./SearchResult";
 import { styled } from "styled-components";
 import { getRecommendedWord } from "../apis/requests";
-import { BASE_URL } from "../constants";
+import { BASE_URL, ENDPOINT } from "../constants";
 import { getCachedData, setCachedData } from "../utils/cache";
 
 export default function Search() {
@@ -12,7 +12,7 @@ export default function Search() {
   const fetchData = useCallback(async (keyword) => {
     try {
       const cacheName = `cache_${keyword}`;
-      const url = `${BASE_URL}?q=${keyword}`;
+      const url = `${BASE_URL}${ENDPOINT.SICK}?q=${keyword}`;
 
       let cacheData = await getCachedData(cacheName, url);
 
