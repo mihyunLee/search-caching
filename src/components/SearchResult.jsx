@@ -1,27 +1,17 @@
-import React, { useLayoutEffect, useRef, useState } from "react";
+import React, { useLayoutEffect, useRef } from "react";
 import { styled } from "styled-components";
 import SearchResultItem from "./SearchResultItem";
 
-export default function SearchResult({ recommendedWordList }) {
-  const [focusedIndex, setFocusedIndex] = useState(0);
+export default function SearchResult({
+  recommendedWordList,
+  focusedIndex,
+  setFocusedIndex,
+  onKeyDown,
+}) {
   const liRef = useRef(null);
 
-  const handleKeyDown = (e) => {
-    if (e.key === "Tab") {
-      e.preventDefault();
-
-      if (e.shiftKey) {
-        // Shift + Tab: 이전 아이템으로 이동
-        setFocusedIndex((prevIndex) =>
-          prevIndex > 0 ? prevIndex - 1 : recommendedWordList.length - 1
-        );
-      } else {
-        // Tab: 다음 아이템으로 이동
-        setFocusedIndex((prevIndex) =>
-          prevIndex < recommendedWordList.length - 1 ? prevIndex + 1 : 0
-        );
-      }
-    }
+  const resetFocusedIndex = (idx) => {
+    setFocusedIndex(idx);
   };
 
   useLayoutEffect(() => {
@@ -41,7 +31,8 @@ export default function SearchResult({ recommendedWordList }) {
                 key={el.sickCd}
                 ref={focusedIndex === idx ? liRef : null}
                 tabIndex={focusedIndex === idx ? 0 : -1}
-                onKeyDown={handleKeyDown}
+                onClick={() => resetFocusedIndex(idx)}
+                onKeyDown={onKeyDown}
               >
                 {el.sickNm}
               </SearchResultItem>

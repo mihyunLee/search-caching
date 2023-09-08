@@ -2,9 +2,14 @@ import React from "react";
 import { styled } from "styled-components";
 import { StyledSearchIcon } from "./SearchForm";
 
-function SearchResultItem({ children, tabIndex, onKeyDown }, ref) {
+function SearchResultItem({ children, tabIndex, onClick, onKeyDown }, ref) {
   return (
-    <StyledLi ref={ref} tabIndex={tabIndex} onKeyDown={onKeyDown}>
+    <StyledLi
+      ref={ref}
+      tabIndex={tabIndex}
+      onClick={onClick}
+      onKeyDown={onKeyDown}
+    >
       <StyledSearchIcon width="16px" height="16px" />
       <span>{children}</span>
     </StyledLi>

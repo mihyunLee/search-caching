@@ -3,15 +3,26 @@ import useDebounce from "../hooks/useDebounce";
 import { styled } from "styled-components";
 import { ReactComponent as SearchIcon } from "../assets/icon-search.svg";
 
-export default function SearchForm({ fetchData, setIsEmptyValue }) {
+export default function SearchForm({
+  fetchData,
+  setIsEmptyValue,
+  setFocusedIndex,
+  onKeyDown,
+}) {
   const [searchWord, setSearchWord] = useState("");
 
   const debouncedSearchWord = useDebounce(searchWord, 500);
 
-  const handleChangeInput = (e) => {
-    setSearchWord(e.target.value);
+  const resetFocusedIndex = () => {
+    setFocusedIndex(-1);
+  };
 
-    if (e.target.value.trim().length > 0) {
+  const handleChangeInput = (e) => {
+    const newWord = e.target.value;
+    setSearchWord(newWord);
+    resetFocusedIndex();
+
+    if (newWord.trim().length > 0) {
       setIsEmptyValue(false);
     } else {
       setIsEmptyValue(true);
@@ -33,6 +44,8 @@ export default function SearchForm({ fetchData, setIsEmptyValue }) {
             type="search"
             value={searchWord}
             onChange={handleChangeInput}
+            onClick={resetFocusedIndex}
+            onKeyDown={onKeyDown}
             placeholder="질환명을 입력해 주세요."
           />
           <SearchButton aria-label="검색">
